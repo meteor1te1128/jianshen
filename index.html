@@ -6,36 +6,42 @@
 <title>我的训练计划</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #fdf8f2;
-  --bg2: #fff9f4;
-  --s1: #ffffff;
-  --s2: #fef3e8;
-  --border: rgba(0,0,0,0.06);
-  --border2: rgba(0,0,0,0.1);
-  --text: #2d2418;
-  --text2: #8a7560;
-  --text3: #c4b09a;
-  --orange: #ff7a35;
-  --orange-light: #fff0e8;
-  --orange-mid: #ffb38a;
-  --yellow: #ffca28;
-  --yellow-light: #fffbe8;
-  --teal: #26c6a8;
-  --teal-light: #e8faf6;
-  --pink: #ff6b9d;
-  --pink-light: #fff0f6;
-  --blue: #4da6ff;
-  --blue-light: #eef6ff;
-  --green: #52d48a;
-  --shadow: 0 2px 16px rgba(255,122,53,0.08);
-  --shadow2: 0 4px 24px rgba(255,122,53,0.12);
-  --r: 20px;
-  --r-sm: 12px;
+:root{
+  --bg:#fdf8f2;--s1:#ffffff;--s2:#fef3e8;
+  --border:rgba(0,0,0,0.06);--border2:rgba(0,0,0,0.1);
+  --text:#2d2418;--text2:#8a7560;--text3:#c4b09a;
+  --orange:#ff7a35;--orange-light:#fff0e8;--orange-mid:#ffb38a;
+  --yellow:#ffca28;--yellow-light:#fffbe8;
+  --blue:#4da6ff;--blue-light:#eef6ff;
+  --green:#52d48a;--green-light:#edfbf4;
+  --pink:#ff6b9d;
+  --shadow:0 2px 16px rgba(255,122,53,0.08);
+  --shadow2:0 6px 28px rgba(255,122,53,0.14);
+  --r:20px;--r-sm:12px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{background:var(--bg);}
-body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;padding-bottom:90px;}
+body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;padding-bottom:96px;}
+
+/* ── CONFETTI BANNER ── */
+.confetti-banner{display:none;position:fixed;top:0;left:0;right:0;z-index:999;background:linear-gradient(135deg,#ff7a35,#ffca28);padding:14px 20px;text-align:center;font-size:15px;font-weight:800;color:#fff;letter-spacing:0.02em;animation:slideDown .4s cubic-bezier(.34,1.56,.64,1);}
+.confetti-banner.show{display:block;}
+@keyframes slideDown{from{transform:translateY(-100%);}to{transform:translateY(0);}}
+.banner-close{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:18px;cursor:pointer;opacity:0.8;}
+
+/* ── CUSTOM MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.show{display:flex;}
+.modal-box{background:#fff;border-radius:24px;padding:28px 24px 20px;width:100%;max-width:320px;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popIn{from{transform:scale(0.85);opacity:0;}to{transform:scale(1);opacity:1;}}
+.modal-icon{font-size:36px;text-align:center;margin-bottom:12px;}
+.modal-title{font-size:17px;font-weight:800;text-align:center;color:var(--text);margin-bottom:8px;}
+.modal-desc{font-size:13px;color:var(--text2);text-align:center;line-height:1.6;margin-bottom:20px;}
+.modal-btns{display:flex;gap:10px;}
+.modal-btn{flex:1;padding:12px;border-radius:14px;border:none;font-family:'Nunito','Noto Sans SC',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:transform .15s,opacity .15s;}
+.modal-btn:active{transform:scale(0.96);opacity:0.85;}
+.modal-btn.cancel{background:var(--bg);color:var(--text2);}
+.modal-btn.confirm{background:linear-gradient(135deg,var(--orange),var(--yellow));color:#fff;}
 
 /* ── HERO ── */
 .hero{position:relative;padding:56px 22px 28px;overflow:hidden;}
@@ -45,23 +51,21 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
 .blob2{width:200px;height:200px;bottom:-40px;left:-60px;background:#ff7a35;}
 .blob3{width:160px;height:160px;top:60px;left:30px;background:#ff6b9d;opacity:0.2;}
 .hero-tag{display:inline-flex;align-items:center;gap:6px;background:var(--orange-light);color:var(--orange);font-size:12px;font-weight:700;padding:5px 12px;border-radius:30px;margin-bottom:16px;border:1px solid rgba(255,122,53,0.15);}
-.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s ease-in-out infinite;}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s ease-in-out infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.4);opacity:0.6;}}
 .hero-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:52px;line-height:0.95;margin-bottom:8px;}
 .hero-title .t1{display:block;color:var(--text);}
 .hero-title .t2{display:block;color:var(--orange);font-style:italic;}
 .hero-sub{font-size:14px;color:var(--text2);line-height:1.65;font-weight:400;margin-top:14px;}
-
-/* stats row */
 .stats{display:flex;gap:10px;margin:20px 0 0;position:relative;}
 .stat-card{flex:1;background:var(--s1);border-radius:var(--r-sm);padding:14px 10px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border);}
 .stat-n{font-family:'Nunito',sans-serif;font-weight:900;font-size:28px;line-height:1;}
-.stat-l{font-size:10px;color:var(--text3);margin-top:3px;font-weight:600;letter-spacing:0.03em;}
+.stat-l{font-size:10px;color:var(--text3);margin-top:3px;font-weight:600;}
 .stat-card:nth-child(1) .stat-n{color:var(--orange);}
-.stat-card:nth-child(2) .stat-n{color:var(--teal);}
-.stat-card:nth-child(3) .stat-n{color:var(--pink);}
+.stat-card:nth-child(2) .stat-n{color:var(--blue);}
+.stat-card:nth-child(3) .stat-n{color:var(--green);}
 
-/* ── REST RULE ── */
+/* ── RULE CARD ── */
 .section{padding:0 16px;margin-bottom:12px;}
 .rule-card{background:var(--s1);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);border:1px solid var(--border);}
 .rule-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
@@ -70,13 +74,12 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
 .rule-rows{display:flex;flex-direction:column;gap:8px;}
 .rule-row{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--bg);border-radius:10px;}
 .rule-row-label{font-size:12px;color:var(--text2);font-weight:600;flex:1;padding-right:8px;}
-.rule-row-val{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--orange);white-space:nowrap;background:var(--orange-light);padding:3px 10px;border-radius:20px;}
+.rule-row-val{font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--orange);white-space:nowrap;background:var(--orange-light);padding:3px 10px;border-radius:20px;}
 
 /* ── PHASE HEADER ── */
 .phase-head{display:flex;align-items:center;gap:10px;padding:16px 16px 8px;}
 .phase-emoji{font-size:18px;}
-.phase-texts{}
-.phase-label{font-size:13px;font-weight:800;letter-spacing:0.02em;}
+.phase-label{font-size:13px;font-weight:800;}
 .phase-desc{font-size:11px;color:var(--text3);font-weight:600;margin-top:1px;}
 .phase-line{flex:1;height:2px;border-radius:2px;}
 .pa .phase-label{color:var(--orange);}
@@ -86,10 +89,10 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
 
 /* ── DAY CARDS ── */
 .days{display:flex;flex-direction:column;gap:10px;padding:0 16px;}
-
-.day-card{background:var(--s1);border-radius:var(--r);box-shadow:var(--shadow);border:1.5px solid transparent;transition:box-shadow .2s, border-color .2s;overflow:hidden;}
+.day-card{background:var(--s1);border-radius:var(--r);box-shadow:var(--shadow);border:1.5px solid transparent;transition:box-shadow .2s,border-color .2s;overflow:hidden;}
 .day-card.open{box-shadow:var(--shadow2);}
-.day-card.done{border-color:rgba(82,212,138,0.4);background:linear-gradient(135deg,#fff,#f0fdf6);}
+.day-card.done{border-color:rgba(82,212,138,0.4);background:linear-gradient(160deg,#fff 60%,#f0fdf6);}
+.day-card.next-up{border-color:rgba(255,122,53,0.35);box-shadow:0 4px 20px rgba(255,122,53,0.12);}
 
 .day-trigger{display:grid;grid-template-columns:56px 1fr auto;align-items:center;padding:14px 14px 14px 16px;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .day-trigger:active{opacity:0.85;}
@@ -103,84 +106,103 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
 .pb-card .day-num{color:#99ccff;}
 .pb-card.open .day-num,.pb-card.done .day-num{color:var(--blue);}
 .pb-card .day-badge{background:var(--blue-light);color:var(--blue);}
-.done .day-num{color:var(--green) !important;}
+.day-card.done .day-num{color:var(--green) !important;}
+.next-up-badge{display:none;font-size:9px;font-weight:800;color:var(--orange);background:var(--orange-light);padding:2px 7px;border-radius:20px;margin-top:2px;}
+.day-card.next-up .next-up-badge{display:block;}
 
 .day-info{padding:0 10px;}
 .day-title{font-size:15px;font-weight:800;color:var(--text);line-height:1.3;}
 .day-meta{font-size:11px;color:var(--text3);margin-top:3px;font-weight:600;}
+.done .day-title{color:var(--green);}
 
 .day-actions{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
-.check-btn{width:26px;height:26px;border-radius:50%;border:2px solid var(--border2);background:transparent;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .2s;color:transparent;}
-.done .check-btn{background:var(--green);border-color:var(--green);color:#fff;}
+.check-btn{width:28px;height:28px;border-radius:50%;border:2px solid var(--border2);background:transparent;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all .25s;color:transparent;flex-shrink:0;}
+.check-btn:active{transform:scale(0.85);}
+.done .check-btn{background:var(--green);border-color:var(--green);color:#fff;animation:checkPop .35s cubic-bezier(.34,1.56,.64,1);}
+@keyframes checkPop{0%{transform:scale(0.5);}60%{transform:scale(1.25);}100%{transform:scale(1);}}
 .arrow{font-size:16px;color:var(--text3);transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
 .day-card.open .arrow{transform:rotate(180deg);}
 
-/* body */
-.day-body{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.4,0,.2,1);}
+/* ── BODY ── */
+.day-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
 .day-body-inner{padding:0 16px 16px;border-top:1.5px dashed var(--border2);}
 
-/* ex groups */
+/* exercise groups */
 .ex-group{margin-top:14px;}
 .ex-group-label{font-size:10px;font-weight:800;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-.ex-group-label::before{content:'';width:12px;height:2px;border-radius:2px;background:var(--text3);}
+.ex-group-label::before{content:'';width:12px;height:2px;border-radius:2px;background:currentColor;}
 .ex-rows{display:flex;flex-direction:column;gap:6px;}
-.ex-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;background:var(--bg);}
+.ex-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;}
 .pa-card .ex-item{background:var(--orange-light);}
 .pb-card .ex-item{background:var(--blue-light);}
-.ex-left{}
 .ex-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;}
 .ex-warn{font-size:10px;color:var(--pink);font-weight:700;margin-top:2px;}
 .ex-right{text-align:right;flex-shrink:0;}
 .ex-sets{font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;}
 .ex-rest{font-size:10px;color:var(--text3);font-weight:600;margin-top:2px;white-space:nowrap;}
 
-/* tip */
 .day-tip{margin-top:12px;padding:10px 14px;background:var(--yellow-light);border-radius:12px;font-size:12px;color:#9a7a00;font-weight:700;line-height:1.6;display:flex;gap:8px;align-items:flex-start;}
-.day-tip-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
 
 /* rest cards */
 .rest-card{background:var(--s1);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);border:1.5px dashed var(--border2);}
-.rest-icon-wrap{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
-.rest-icon-wrap.moon{background:#f0eeff;}
+.rest-icon-wrap{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:#f0eeff;}
 .rest-icon-wrap.bolt{background:var(--blue-light);}
 .rest-title{font-size:14px;font-weight:800;color:var(--text);}
 .rest-desc{font-size:11px;color:var(--text3);margin-top:3px;font-weight:600;line-height:1.5;}
 .rest-card.key-rest .rest-title{color:var(--blue);}
 
-/* loop section */
+/* loop card */
 .loop-card{margin:16px 16px 0;background:var(--s1);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--border);}
 .loop-top{padding:16px 18px;background:linear-gradient(135deg,var(--orange-light),var(--yellow-light));border-bottom:1px solid var(--border);}
 .loop-top-row{display:flex;align-items:center;gap:10px;}
 .loop-emoji{font-size:24px;}
 .loop-title{font-size:15px;font-weight:800;color:var(--orange);}
 .loop-sub{font-size:12px;color:var(--text2);font-weight:600;margin-top:2px;}
-.loop-rows{padding:14px 18px;display:flex;flex-direction:column;gap:8px;}
-.loop-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);}
+.loop-rows{padding:14px 18px;display:flex;flex-direction:column;gap:0;}
+.loop-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
 .loop-row:last-child{border-bottom:none;}
 .loop-label{font-size:13px;color:var(--text2);font-weight:600;}
 .loop-val{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--text);}
-.loop-val.green{color:var(--green);}
-.loop-val.orange{color:var(--orange);}
+.loop-val.g{color:var(--green);}
+.loop-val.o{color:var(--orange);}
 
 /* ── BOTTOM BAR ── */
-.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(253,248,242,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:100;display:flex;align-items:center;gap:14px;}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(253,248,242,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:100;display:flex;align-items:center;gap:14px;}
 .bar-progress{flex:1;}
 .bar-label{font-size:10px;font-weight:700;color:var(--text3);margin-bottom:5px;letter-spacing:0.04em;}
-.bar-track{height:6px;background:var(--border2);border-radius:6px;overflow:hidden;}
-.bar-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--yellow));border-radius:6px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
+.bar-track{height:7px;background:var(--border2);border-radius:8px;overflow:hidden;}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--yellow));border-radius:8px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
 .bar-count{font-size:12px;font-weight:800;color:var(--text2);margin-top:4px;}
 .bar-count span{color:var(--orange);}
-.reset-btn{font-size:11px;font-weight:700;color:var(--text3);padding:7px 12px;border:1.5px solid var(--border2);border-radius:20px;cursor:pointer;background:transparent;transition:all .15s;white-space:nowrap;}
-.reset-btn:active{background:var(--border);transform:scale(0.96);}
+.reset-btn{font-size:12px;font-weight:800;color:var(--text2);padding:8px 14px;border:1.5px solid var(--border2);border-radius:20px;cursor:pointer;background:transparent;white-space:nowrap;transition:all .15s;}
+.reset-btn:active{background:var(--s2);transform:scale(0.95);}
 
-/* animations */
-.fade-in{opacity:0;transform:translateY(18px);transition:opacity .45s ease,transform .45s ease;}
+/* fade in */
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease;}
 .fade-in.show{opacity:1;transform:none;}
-
-.pb-spacer{height:88px;}
+.pb-spacer{height:96px;}
 </style>
 </head>
 <body>
+
+<!-- CONFETTI BANNER -->
+<div class="confetti-banner" id="congrats-banner">
+  🎉 太棒了！本周期全部完成！继续保持，下一个周期继续冲！
+  <span class="banner-close" onclick="document.getElementById('congrats-banner').classList.remove('show')">✕</span>
+</div>
+
+<!-- RESET MODAL -->
+<div class="modal-overlay" id="reset-modal">
+  <div class="modal-box">
+    <div class="modal-icon">🔄</div>
+    <div class="modal-title">重置打卡记录？</div>
+    <div class="modal-desc">将清除本周期所有打卡进度，开始新的一轮！</div>
+    <div class="modal-btns">
+      <button class="modal-btn cancel" onclick="closeModal()">取消</button>
+      <button class="modal-btn confirm" onclick="confirmReset()">确认重置</button>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -190,7 +212,7 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
     <div class="blob blob3"></div>
   </div>
   <div style="position:relative;z-index:1;">
-    <div class="hero-tag"><div class="hero-tag-dot"></div>13天训练周期</div>
+    <div class="hero-tag"><div class="hero-dot"></div>13天训练周期</div>
     <div class="hero-title">
       <span class="t1">让我们</span>
       <span class="t2">动起来！</span>
@@ -204,7 +226,7 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
   </div>
 </div>
 
-<!-- REST RULE -->
+<!-- RULE CARD -->
 <div class="section fade-in">
   <div class="rule-card">
     <div class="rule-header">
@@ -212,18 +234,9 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
       <div class="rule-title">组间歇规则</div>
     </div>
     <div class="rule-rows">
-      <div class="rule-row">
-        <div class="rule-row-label">复合动作（卧推 / 深蹲 / 划船 / 下拉）</div>
-        <div class="rule-row-val">2–3 分钟</div>
-      </div>
-      <div class="rule-row">
-        <div class="rule-row-label">力量阶段做 5×5 时</div>
-        <div class="rule-row-val">足3分钟</div>
-      </div>
-      <div class="rule-row">
-        <div class="rule-row-label">孤立动作（弯举 / 飞鸟 / 侧平举）</div>
-        <div class="rule-row-val">60–90秒</div>
-      </div>
+      <div class="rule-row"><div class="rule-row-label">复合动作（卧推 / 深蹲 / 划船 / 下拉）</div><div class="rule-row-val">2–3 分钟</div></div>
+      <div class="rule-row"><div class="rule-row-label">力量阶段做 5×5 时</div><div class="rule-row-val">足3分钟</div></div>
+      <div class="rule-row"><div class="rule-row-label">孤立动作（弯举 / 飞鸟 / 侧平举）</div><div class="rule-row-val">60–90秒</div></div>
     </div>
   </div>
 </div>
@@ -231,10 +244,7 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
 <!-- PHASE A -->
 <div class="phase-head pa fade-in">
   <span class="phase-emoji">☀️</span>
-  <div class="phase-texts">
-    <div class="phase-label">容量阶段 · Day 1–6</div>
-    <div class="phase-desc">中等重量 · 多组次 · 积累训练量</div>
-  </div>
+  <div><div class="phase-label">容量阶段 · Day 1–6</div><div class="phase-desc">中等重量 · 多组次 · 积累训练量</div></div>
   <div class="phase-line"></div>
 </div>
 
@@ -243,175 +253,114 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
 <!-- D1 -->
 <div class="day-card pa-card fade-in" id="c1" data-day="1">
   <div class="day-trigger" onclick="toggleCard(1)">
-    <div class="day-num-wrap">
-      <div class="day-num">01</div>
-      <div class="day-badge">容量</div>
-    </div>
-    <div class="day-info">
-      <div class="day-title">推 · 胸 + 三头</div>
-      <div class="day-meta">约65分钟 · 6个动作</div>
-    </div>
-    <div class="day-actions">
-      <div class="check-btn" onclick="toggleDone(event,1)">✓</div>
-      <div class="arrow">⌄</div>
-    </div>
+    <div class="day-num-wrap"><div class="day-num">01</div><div class="day-badge">容量</div><div class="next-up-badge">今日</div></div>
+    <div class="day-info"><div class="day-title">推 · 胸 + 三头</div><div class="day-meta">约65分钟 · 6个动作</div></div>
+    <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,1)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b1">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">主项复合</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">平板卧推</div></div><div class="ex-right"><div class="ex-sets">40kg × 4×8–10</div><div class="ex-rest">组间 2–3 min</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">上斜哑铃卧推</div></div><div class="ex-right"><div class="ex-sets">15kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">辅助孤立</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">夹胸机</div></div><div class="ex-right"><div class="ex-sets">39kg × 3×10–12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">下胸推胸机</div></div><div class="ex-right"><div class="ex-sets">单边17.5kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">三头</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">绳索三头下压</div></div><div class="ex-right"><div class="ex-sets">20kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">颈后臂屈伸</div></div><div class="ex-right"><div class="ex-sets">20kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="day-body" id="b1"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">主项复合</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">平板卧推</div></div><div class="ex-right"><div class="ex-sets">40kg × 4×8–10</div><div class="ex-rest">组间 2–3 min</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">上斜哑铃卧推</div></div><div class="ex-right"><div class="ex-sets">15kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">辅助孤立</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">夹胸机</div></div><div class="ex-right"><div class="ex-sets">39kg × 3×10–12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">下胸推胸机</div></div><div class="ex-right"><div class="ex-sets">单边17.5kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">三头</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">绳索三头下压</div></div><div class="ex-right"><div class="ex-sets">20kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">颈后臂屈伸</div></div><div class="ex-right"><div class="ex-sets">20kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+    </div></div>
+  </div></div>
 </div>
 
 <!-- D2 -->
 <div class="day-card pa-card fade-in" id="c2" data-day="2">
   <div class="day-trigger" onclick="toggleCard(2)">
-    <div class="day-num-wrap"><div class="day-num">02</div><div class="day-badge">容量</div></div>
+    <div class="day-num-wrap"><div class="day-num">02</div><div class="day-badge">容量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">拉 · 背 + 二头</div><div class="day-meta">约65分钟 · 6个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,2)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b2">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">主项复合</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">宽距高位下拉</div></div><div class="ex-right"><div class="ex-sets">41.3kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">窄距固定器械划船</div></div><div class="ex-right"><div class="ex-sets">32kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">辅助孤立</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">单侧器械水平划船</div></div><div class="ex-right"><div class="ex-sets">25kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">直臂下压</div></div><div class="ex-right"><div class="ex-sets">36kg × 3×10–12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">二头</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">直杆二头弯举</div></div><div class="ex-right"><div class="ex-sets">23kg × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">斜坐锤式弯举</div></div><div class="ex-right"><div class="ex-sets">7kg × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="day-body" id="b2"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">主项复合</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">宽距高位下拉</div></div><div class="ex-right"><div class="ex-sets">41.3kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">窄距固定器械划船</div></div><div class="ex-right"><div class="ex-sets">32kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">辅助孤立</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">单侧器械水平划船</div></div><div class="ex-right"><div class="ex-sets">25kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">直臂下压</div></div><div class="ex-right"><div class="ex-sets">36kg × 3×10–12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">二头</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">直杆二头弯举</div></div><div class="ex-right"><div class="ex-sets">23kg × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">斜坐锤式弯举</div></div><div class="ex-right"><div class="ex-sets">7kg × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
+    </div></div>
+  </div></div>
 </div>
 
 <!-- D3 -->
 <div class="day-card pa-card fade-in" id="c3" data-day="3">
   <div class="day-trigger" onclick="toggleCard(3)">
-    <div class="day-num-wrap"><div class="day-num">03</div><div class="day-badge">容量</div></div>
+    <div class="day-num-wrap"><div class="day-num">03</div><div class="day-badge">容量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">腿 · 股四 + 腘绳 + 小腿</div><div class="day-meta">约60分钟 · 4个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,3)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b3">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">主项复合</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">深蹲</div></div><div class="ex-right"><div class="ex-sets">50kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">保加利亚单腿蹲</div></div><div class="ex-right"><div class="ex-sets">单边10kg × 3×10</div><div class="ex-rest">组间 2 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">辅助 & 小腿</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">腿弯举</div></div><div class="ex-right"><div class="ex-sets">27kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">站姿提踵</div></div><div class="ex-right"><div class="ex-sets">自重/负重 × 4×15</div><div class="ex-rest">组间 60 s</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="day-body" id="b3"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">主项复合</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">深蹲</div></div><div class="ex-right"><div class="ex-sets">50kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">保加利亚单腿蹲</div></div><div class="ex-right"><div class="ex-sets">单边10kg × 3×10</div><div class="ex-rest">组间 2 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">辅助 & 小腿</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">腿弯举</div></div><div class="ex-right"><div class="ex-sets">27kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">站姿提踵</div></div><div class="ex-right"><div class="ex-sets">自重/负重 × 4×15</div><div class="ex-rest">组间 60 s</div></div></div>
+    </div></div>
+  </div></div>
 </div>
 
 <!-- D4 REST -->
 <div class="rest-card fade-in">
-  <div class="rest-icon-wrap moon">🌙</div>
+  <div class="rest-icon-wrap">🌙</div>
   <div><div class="rest-title">Day 04 · 休息日</div><div class="rest-desc">好好休息，明天继续冲 · 拉伸10分钟 · 睡够7–9小时</div></div>
 </div>
 
 <!-- D5 -->
 <div class="day-card pa-card fade-in" id="c5" data-day="5">
   <div class="day-trigger" onclick="toggleCard(5)">
-    <div class="day-num-wrap"><div class="day-num">05</div><div class="day-badge">容量</div></div>
+    <div class="day-num-wrap"><div class="day-num">05</div><div class="day-badge">容量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">推 · 肩全束 + 三头补充</div><div class="day-meta">约60分钟 · 5个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,5)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b5">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">肩复合</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">哑铃推肩</div></div><div class="ex-right"><div class="ex-sets">15kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">肩孤立</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">哑铃侧平举</div></div><div class="ex-right"><div class="ex-sets">7kg × 4×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">反向飞鸟机</div></div><div class="ex-right"><div class="ex-sets">39kg × 4×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item">
-            <div class="ex-left"><div class="ex-name">单侧绳索后束飞鸟</div><div class="ex-warn">⚠️ 先练右侧（弱侧），以右侧次数为准</div></div>
-            <div class="ex-right"><div class="ex-sets">4.5kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">三头补充</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">颈后臂屈伸</div></div><div class="ex-right"><div class="ex-sets">20kg × 2×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="day-body" id="b5"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">肩复合</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">哑铃推肩</div></div><div class="ex-right"><div class="ex-sets">15kg × 4×10–12</div><div class="ex-rest">组间 2–3 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">肩孤立</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">哑铃侧平举</div></div><div class="ex-right"><div class="ex-sets">7kg × 4×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">反向飞鸟机</div></div><div class="ex-right"><div class="ex-sets">39kg × 4×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">单侧绳索后束飞鸟</div><div class="ex-warn">⚠️ 先练右侧（弱侧），以右侧次数为准</div></div><div class="ex-right"><div class="ex-sets">4.5kg × 3×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">三头补充</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">颈后臂屈伸</div></div><div class="ex-right"><div class="ex-sets">20kg × 2×12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+    </div></div>
+  </div></div>
 </div>
 
 <!-- D6 -->
 <div class="day-card pa-card fade-in" id="c6" data-day="6">
   <div class="day-trigger" onclick="toggleCard(6)">
-    <div class="day-num-wrap"><div class="day-num">06</div><div class="day-badge">容量</div></div>
+    <div class="day-num-wrap"><div class="day-num">06</div><div class="day-badge">容量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">拉 · 背泵感 + 二头强化</div><div class="day-meta">约50分钟 · 5个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,6)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b6">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">背（泵感优先）</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">宽距高位下拉</div></div><div class="ex-right"><div class="ex-sets">39kg × 3×12</div><div class="ex-rest">组间 90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">单侧器械水平划船</div></div><div class="ex-right"><div class="ex-sets">25kg × 3×12</div><div class="ex-rest">组间 90 s</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">二头强化</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">牧师凳哑铃弯举</div></div><div class="ex-right"><div class="ex-sets">10kg × 4×10–12</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">EZ杆弯举</div></div><div class="ex-right"><div class="ex-sets">适中 × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">斜坐锤式弯举</div></div><div class="ex-right"><div class="ex-sets">7kg × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="day-body" id="b6"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">背（泵感优先）</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">宽距高位下拉</div></div><div class="ex-right"><div class="ex-sets">39kg × 3×12</div><div class="ex-rest">组间 90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">单侧器械水平划船</div></div><div class="ex-right"><div class="ex-sets">25kg × 3×12</div><div class="ex-rest">组间 90 s</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">二头强化</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">牧师凳哑铃弯举</div></div><div class="ex-right"><div class="ex-sets">10kg × 4×10–12</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">EZ杆弯举</div></div><div class="ex-right"><div class="ex-sets">适中 × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">斜坐锤式弯举</div></div><div class="ex-right"><div class="ex-sets">7kg × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
+    </div></div>
+  </div></div>
 </div>
 
 <!-- D7 KEY REST -->
@@ -420,15 +369,12 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
   <div><div class="rest-title">Day 07 · 关键休息日</div><div class="rest-desc">两段之间完整恢复，养精蓄锐迎接力量阶段 · 可做轻度有氧20分钟</div></div>
 </div>
 
-</div><!-- end phase A days -->
+</div>
 
 <!-- PHASE B -->
 <div class="phase-head pb fade-in">
   <span class="phase-emoji">🚀</span>
-  <div class="phase-texts">
-    <div class="phase-label">力量阶段 · Day 8–13</div>
-    <div class="phase-desc">大重量 · 少次数 · 冲击极限</div>
-  </div>
+  <div><div class="phase-label">力量阶段 · Day 8–13</div><div class="phase-desc">大重量 · 少次数 · 冲击极限</div></div>
   <div class="phase-line"></div>
 </div>
 
@@ -437,169 +383,117 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
 <!-- D8 -->
 <div class="day-card pb-card fade-in" id="c8" data-day="8">
   <div class="day-trigger" onclick="toggleCard(8)">
-    <div class="day-num-wrap"><div class="day-num">08</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div></div>
+    <div class="day-num-wrap"><div class="day-num">08</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">推 · 胸 + 三头 冲重量</div><div class="day-meta">约65分钟 · 5个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,8)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b8">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">主项复合</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">平板卧推</div></div><div class="ex-right"><div class="ex-sets">42.5kg × 5×5</div><div class="ex-rest">组间 3 min</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">上斜哑铃卧推</div></div><div class="ex-right"><div class="ex-sets">17.5kg × 4×6–8</div><div class="ex-rest">组间 2–3 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">辅助</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">夹胸机</div></div><div class="ex-right"><div class="ex-sets">39kg × 3×8–10</div><div class="ex-rest">组间 90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">下胸推胸机</div></div><div class="ex-right"><div class="ex-sets">单边17.5kg × 3×10</div><div class="ex-rest">组间 90 s</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">三头</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">颈后臂屈伸</div></div><div class="ex-right"><div class="ex-sets">22.5kg × 3×8–10</div><div class="ex-rest">组间 90 s</div></div></div>
-        </div>
-      </div>
-      <div class="day-tip"><div class="day-tip-icon">💡</div>5×5 时组间必须休息满3分钟，不要妥协，大重量需要充分恢复</div>
-    </div>
-  </div>
+  <div class="day-body" id="b8"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">主项复合</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">平板卧推</div></div><div class="ex-right"><div class="ex-sets">42.5kg × 5×5</div><div class="ex-rest">组间 3 min</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">上斜哑铃卧推</div></div><div class="ex-right"><div class="ex-sets">17.5kg × 4×6–8</div><div class="ex-rest">组间 2–3 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">辅助</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">夹胸机</div></div><div class="ex-right"><div class="ex-sets">39kg × 3×8–10</div><div class="ex-rest">组间 90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">下胸推胸机</div></div><div class="ex-right"><div class="ex-sets">单边17.5kg × 3×10</div><div class="ex-rest">组间 90 s</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">三头</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">颈后臂屈伸</div></div><div class="ex-right"><div class="ex-sets">22.5kg × 3×8–10</div><div class="ex-rest">组间 90 s</div></div></div>
+    </div></div>
+    <div class="day-tip"><span>💡</span> 5×5 时组间必须休息满3分钟，不要妥协，大重量需要充分恢复</div>
+  </div></div>
 </div>
 
 <!-- D9 -->
 <div class="day-card pb-card fade-in" id="c9" data-day="9">
   <div class="day-trigger" onclick="toggleCard(9)">
-    <div class="day-num-wrap"><div class="day-num">09</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div></div>
+    <div class="day-num-wrap"><div class="day-num">09</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">拉 · 背 + 二头 冲重量</div><div class="day-meta">约65分钟 · 6个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,9)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b9">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">主项复合</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">宽距高位下拉</div></div><div class="ex-right"><div class="ex-sets">43.6kg × 5×5</div><div class="ex-rest">组间 3 min</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">窄距器械划船</div></div><div class="ex-right"><div class="ex-sets">34kg × 4×6–8</div><div class="ex-rest">组间 2–3 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">辅助</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">直臂下压</div></div><div class="ex-right"><div class="ex-sets">36kg × 3×10</div><div class="ex-rest">组间 90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">单侧器械水平划船</div></div><div class="ex-right"><div class="ex-sets">27.5kg × 3×8</div><div class="ex-rest">组间 90 s</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">二头</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">直杆二头弯举</div></div><div class="ex-right"><div class="ex-sets">25kg × 4×6–8</div><div class="ex-rest">组间 90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">牧师凳哑铃弯举</div></div><div class="ex-right"><div class="ex-sets">10kg × 3×8</div><div class="ex-rest">组间 90 s</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="day-body" id="b9"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">主项复合</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">宽距高位下拉</div></div><div class="ex-right"><div class="ex-sets">43.6kg × 5×5</div><div class="ex-rest">组间 3 min</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">窄距器械划船</div></div><div class="ex-right"><div class="ex-sets">34kg × 4×6–8</div><div class="ex-rest">组间 2–3 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">辅助</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">直臂下压</div></div><div class="ex-right"><div class="ex-sets">36kg × 3×10</div><div class="ex-rest">组间 90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">单侧器械水平划船</div></div><div class="ex-right"><div class="ex-sets">27.5kg × 3×8</div><div class="ex-rest">组间 90 s</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">二头</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">直杆二头弯举</div></div><div class="ex-right"><div class="ex-sets">25kg × 4×6–8</div><div class="ex-rest">组间 90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">牧师凳哑铃弯举</div></div><div class="ex-right"><div class="ex-sets">10kg × 3×8</div><div class="ex-rest">组间 90 s</div></div></div>
+    </div></div>
+  </div></div>
 </div>
 
 <!-- D10 REST -->
 <div class="rest-card fade-in">
-  <div class="rest-icon-wrap moon">🌙</div>
+  <div class="rest-icon-wrap">🌙</div>
   <div><div class="rest-title">Day 10 · 休息日</div><div class="rest-desc">好好休息，明天练腿 · 拉伸10分钟 · 睡够7–9小时</div></div>
 </div>
 
 <!-- D11 -->
 <div class="day-card pb-card fade-in" id="c11" data-day="11">
   <div class="day-trigger" onclick="toggleCard(11)">
-    <div class="day-num-wrap"><div class="day-num">11</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div></div>
+    <div class="day-num-wrap"><div class="day-num">11</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">腿 · 深蹲主升重量</div><div class="day-meta">约60分钟 · 4个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,11)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b11">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">主项复合</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">深蹲</div></div><div class="ex-right"><div class="ex-sets">55kg × 5×5</div><div class="ex-rest">组间 3 min</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">保加利亚单腿蹲</div></div><div class="ex-right"><div class="ex-sets">单边12.5kg × 3×6–8</div><div class="ex-rest">组间 2 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">辅助 & 小腿</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">腿弯举</div></div><div class="ex-right"><div class="ex-sets">29.5kg × 3×10</div><div class="ex-rest">组间 90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">站姿提踵</div></div><div class="ex-right"><div class="ex-sets">负重 × 4×12</div><div class="ex-rest">组间 60 s</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="day-body" id="b11"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">主项复合</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">深蹲</div></div><div class="ex-right"><div class="ex-sets">55kg × 5×5</div><div class="ex-rest">组间 3 min</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">保加利亚单腿蹲</div></div><div class="ex-right"><div class="ex-sets">单边12.5kg × 3×6–8</div><div class="ex-rest">组间 2 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">辅助 & 小腿</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">腿弯举</div></div><div class="ex-right"><div class="ex-sets">29.5kg × 3×10</div><div class="ex-rest">组间 90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">站姿提踵</div></div><div class="ex-right"><div class="ex-sets">负重 × 4×12</div><div class="ex-rest">组间 60 s</div></div></div>
+    </div></div>
+  </div></div>
 </div>
 
 <!-- D12 -->
 <div class="day-card pb-card fade-in" id="c12" data-day="12">
   <div class="day-trigger" onclick="toggleCard(12)">
-    <div class="day-num-wrap"><div class="day-num">12</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div></div>
+    <div class="day-num-wrap"><div class="day-num">12</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">推 · 肩冲重量 + 三头</div><div class="day-meta">约60分钟 · 5个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,12)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b12">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">肩复合</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">哑铃推肩</div></div><div class="ex-right"><div class="ex-sets">17.5kg × 5×6–8</div><div class="ex-rest">组间 2–3 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">肩孤立</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">哑铃侧平举</div></div><div class="ex-right"><div class="ex-sets">8kg × 4×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">反向飞鸟机</div></div><div class="ex-right"><div class="ex-sets">39kg × 4×8–10</div><div class="ex-rest">组间 60–90 s</div></div></div>
-          <div class="ex-item">
-            <div class="ex-left"><div class="ex-name">单侧绳索后束飞鸟</div><div class="ex-warn">⚠️ 先练右侧（弱侧）</div></div>
-            <div class="ex-right"><div class="ex-sets">4.5kg × 3×10</div><div class="ex-rest">组间 60–90 s</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">三头</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">绳索三头下压</div></div><div class="ex-right"><div class="ex-sets">23kg × 3×8–10</div><div class="ex-rest">组间 90 s</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="day-body" id="b12"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">肩复合</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">哑铃推肩</div></div><div class="ex-right"><div class="ex-sets">17.5kg × 5×6–8</div><div class="ex-rest">组间 2–3 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">肩孤立</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">哑铃侧平举</div></div><div class="ex-right"><div class="ex-sets">8kg × 4×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">反向飞鸟机</div></div><div class="ex-right"><div class="ex-sets">39kg × 4×8–10</div><div class="ex-rest">组间 60–90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">单侧绳索后束飞鸟</div><div class="ex-warn">⚠️ 先练右侧（弱侧）</div></div><div class="ex-right"><div class="ex-sets">4.5kg × 3×10</div><div class="ex-rest">组间 60–90 s</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">三头</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">绳索三头下压</div></div><div class="ex-right"><div class="ex-sets">23kg × 3×8–10</div><div class="ex-rest">组间 90 s</div></div></div>
+    </div></div>
+  </div></div>
 </div>
 
 <!-- D13 -->
 <div class="day-card pb-card fade-in" id="c13" data-day="13">
   <div class="day-trigger" onclick="toggleCard(13)">
-    <div class="day-num-wrap"><div class="day-num">13</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div></div>
+    <div class="day-num-wrap"><div class="day-num">13</div><div class="day-badge" style="background:var(--blue-light);color:var(--blue);">力量</div><div class="next-up-badge">今日</div></div>
     <div class="day-info"><div class="day-title">拉 · 背 + 二头收尾</div><div class="day-meta">约55分钟 · 4个动作</div></div>
     <div class="day-actions"><div class="check-btn" onclick="toggleDone(event,13)">✓</div><div class="arrow">⌄</div></div>
   </div>
-  <div class="day-body" id="b13">
-    <div class="day-body-inner">
-      <div class="ex-group">
-        <div class="ex-group-label">背</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">宽距高位下拉</div></div><div class="ex-right"><div class="ex-sets">43.6kg × 4×6–8</div><div class="ex-rest">组间 2–3 min</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">窄距器械划船</div></div><div class="ex-right"><div class="ex-sets">34kg × 3×8</div><div class="ex-rest">组间 2 min</div></div></div>
-        </div>
-      </div>
-      <div class="ex-group">
-        <div class="ex-group-label">二头收尾</div>
-        <div class="ex-rows">
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">直杆二头弯举</div></div><div class="ex-right"><div class="ex-sets">25kg × 3×6–8</div><div class="ex-rest">组间 90 s</div></div></div>
-          <div class="ex-item"><div class="ex-left"><div class="ex-name">斜坐锤式弯举</div></div><div class="ex-right"><div class="ex-sets">7kg × 3×8</div><div class="ex-rest">组间 90 s</div></div></div>
-        </div>
-      </div>
-      <div class="day-tip"><div class="day-tip-icon">🎉</div>周期完成！休息1天，从第1天重新开始。每个新周期主项复合动作各 +2.5kg，继续进步！</div>
-    </div>
-  </div>
+  <div class="day-body" id="b13"><div class="day-body-inner">
+    <div class="ex-group"><div class="ex-group-label">背</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">宽距高位下拉</div></div><div class="ex-right"><div class="ex-sets">43.6kg × 4×6–8</div><div class="ex-rest">组间 2–3 min</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">窄距器械划船</div></div><div class="ex-right"><div class="ex-sets">34kg × 3×8</div><div class="ex-rest">组间 2 min</div></div></div>
+    </div></div>
+    <div class="ex-group"><div class="ex-group-label">二头收尾</div><div class="ex-rows">
+      <div class="ex-item"><div><div class="ex-name">直杆二头弯举</div></div><div class="ex-right"><div class="ex-sets">25kg × 3×6–8</div><div class="ex-rest">组间 90 s</div></div></div>
+      <div class="ex-item"><div><div class="ex-name">斜坐锤式弯举</div></div><div class="ex-right"><div class="ex-sets">7kg × 3×8</div><div class="ex-rest">组间 90 s</div></div></div>
+    </div></div>
+    <div class="day-tip"><span>🎉</span> 周期完成！休息1天，从第1天重新开始。每个新周期主项复合动作各 +2.5kg，继续进步！</div>
+  </div></div>
 </div>
 
-</div><!-- end phase B -->
+</div>
 
 <!-- LOOP RULES -->
 <div class="loop-card fade-in">
@@ -611,9 +505,9 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
   </div>
   <div class="loop-rows">
     <div class="loop-row"><div class="loop-label">全部目标次数完成后</div><div class="loop-val">下周期加重</div></div>
-    <div class="loop-row"><div class="loop-label">复合动作每次加</div><div class="loop-val green">+2.5 kg</div></div>
-    <div class="loop-row"><div class="loop-label">孤立动作每次加</div><div class="loop-val green">+1.25 kg</div></div>
-    <div class="loop-row"><div class="loop-label">每组接近力竭</div><div class="loop-val orange">留 1–2 次</div></div>
+    <div class="loop-row"><div class="loop-label">复合动作每次加</div><div class="loop-val g">+2.5 kg</div></div>
+    <div class="loop-row"><div class="loop-label">孤立动作每次加</div><div class="loop-val g">+1.25 kg</div></div>
+    <div class="loop-row"><div class="loop-label">每组接近力竭</div><div class="loop-val o">留 1–2 次</div></div>
     <div class="loop-row"><div class="loop-label">周期结束后休息</div><div class="loop-val">1 天</div></div>
   </div>
 </div>
@@ -627,7 +521,7 @@ body{font-family:'Nunito','Noto Sans SC',sans-serif;background:var(--bg);color:v
     <div class="bar-track"><div class="bar-fill" id="gfill"></div></div>
     <div class="bar-count"><span id="gcnt">0</span> / 10 训练日完成 💪</div>
   </div>
-  <button class="reset-btn" onclick="resetAll()">重置</button>
+  <button class="reset-btn" onclick="openModal()">重置</button>
 </div>
 
 <script>
@@ -637,41 +531,81 @@ try{done=JSON.parse(localStorage.getItem('fp_done')||'[]');}catch(e){}
 
 function save(){try{localStorage.setItem('fp_done',JSON.stringify(done));}catch(e){}}
 
+function openModal(){document.getElementById('reset-modal').classList.add('show');}
+function closeModal(){document.getElementById('reset-modal').classList.remove('show');}
+function confirmReset(){done=[];save();render();closeModal();}
+
+// close modal on overlay click
+document.getElementById('reset-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
 function toggleCard(n){
   const c=document.getElementById('c'+n);
   const b=document.getElementById('b'+n);
   if(!c||!b)return;
   const isOpen=c.classList.contains('open');
-  document.querySelectorAll('.day-card.open').forEach(x=>{
-    if(x!==c){x.classList.remove('open');const bb=document.getElementById('b'+x.dataset.day);if(bb)bb.style.maxHeight='0';}
+  // close others
+  DAYS.forEach(d=>{
+    if(d!==n){
+      const oc=document.getElementById('c'+d);
+      const ob=document.getElementById('b'+d);
+      if(oc&&oc.classList.contains('open')){
+        oc.classList.remove('open');
+        if(ob)ob.style.maxHeight='0';
+      }
+    }
   });
-  if(isOpen){b.style.maxHeight='0';c.classList.remove('open');}
-  else{c.classList.add('open');b.style.maxHeight=b.scrollHeight+'px';setTimeout(()=>{b.style.maxHeight=b.scrollHeight+'px';},10);}
+  if(isOpen){
+    b.style.maxHeight='0';
+    c.classList.remove('open');
+  } else {
+    c.classList.add('open');
+    // measure real height
+    b.style.maxHeight='none';
+    const h=b.scrollHeight;
+    b.style.maxHeight='0';
+    requestAnimationFrame(()=>{b.style.maxHeight=h+'px';});
+  }
 }
 
 function toggleDone(e,n){
   e.stopPropagation();
   const idx=done.indexOf(n);
   if(idx>-1)done.splice(idx,1);else done.push(n);
-  save();render();
+  save();
+  render();
 }
 
 function render(){
   DAYS.forEach(n=>{
     const c=document.getElementById('c'+n);
-    if(c){if(done.includes(n))c.classList.add('done');else c.classList.remove('done');}
+    if(!c)return;
+    if(done.includes(n))c.classList.add('done');
+    else c.classList.remove('done');
   });
+
+  // highlight next undone day
+  document.querySelectorAll('.day-card').forEach(c=>c.classList.remove('next-up'));
+  const next=DAYS.find(n=>!done.includes(n));
+  if(next){
+    const nc=document.getElementById('c'+next);
+    if(nc)nc.classList.add('next-up');
+  }
+
   const pct=Math.round(done.length/10*100);
   document.getElementById('gfill').style.width=pct+'%';
   document.getElementById('gcnt').textContent=done.length;
-}
 
-function resetAll(){if(confirm('确认重置所有打卡记录？')){done=[];save();render();}}
+  // confetti banner when all done
+  const banner=document.getElementById('congrats-banner');
+  if(done.length===10)banner.classList.add('show');
+  else banner.classList.remove('show');
+}
 
 render();
 
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});},{threshold:0.1});
-document.querySelectorAll('.fade-in').forEach((el,i)=>{el.style.transitionDelay=(i*0.035)+'s';obs.observe(el);});
+// scroll fade
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');obs.unobserve(e.target);}});},{threshold:0.08});
+document.querySelectorAll('.fade-in').forEach((el,i)=>{el.style.transitionDelay=(i*0.03)+'s';obs.observe(el);});
 </script>
 </body>
 </html>
